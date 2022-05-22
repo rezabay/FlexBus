@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Fooreco.Cap.Dashboard.Demo": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": "true",
+      "applicationUrl": "https://localhost:5034;http://localhost:5033"
+    }
+  }
+}

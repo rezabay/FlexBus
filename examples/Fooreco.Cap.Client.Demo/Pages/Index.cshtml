@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "CAP Test Client";
+}
+
+<h2>Actions</h2>
+
+<div class="row">
+    <div class="col-lg-1">
+        <form asp-page-handler="schedule" method="post">
+            <button class="btn btn-default">Schedule Message</button>
+        </form>
+    </div>
+</div>
