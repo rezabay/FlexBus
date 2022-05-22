@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FlexBus.AmazonSQS\FlexBus.AmazonSQS.csproj" />
+    <ProjectReference Include="..\..\src\FlexBus.Consumer\FlexBus.Consumer.csproj" />
+    <ProjectReference Include="..\..\src\FlexBus.PostgreSql\FlexBus.PostgreSql.csproj" />
+    <ProjectReference Include="..\..\src\FlexBus\FlexBus.csproj" />
+    <ProjectReference Include="..\FlexBus.Common.Demo\FlexBus.Common.Demo.csproj" />
+  </ItemGroup>
+
+</Project>

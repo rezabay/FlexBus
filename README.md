@@ -1,3 +1,3 @@
-# Fooreco CAP project
+# FlexBus project
 Description is coming soon
 
