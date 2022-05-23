@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace FlexBus;
 
-public abstract class CapTransactionBase : ICapTransaction
+public abstract class FlexBusTransactionBase : ICapTransaction
 {
-    protected CapTransactionBase()
+    protected FlexBusTransactionBase()
     {
     }
 

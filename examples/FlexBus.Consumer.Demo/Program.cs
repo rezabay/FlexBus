@@ -13,12 +13,12 @@ var configuration = builder.Configuration;
 
 services.AddControllers();
 services.AddHealthChecks()
-    .AddCheck<CapHealthCheck>("sqs-check", HealthStatus.Unhealthy, new[] { "ready" });
+    .AddCheck<FlexBusHealthCheck>("sqs-check", HealthStatus.Unhealthy, new[] { "ready" });
 
 // Subscribers
 services.AddTransient<SendEmailSubscriber>();
 
-services.AddCap(x =>
+services.AddFlexBus(x =>
 {
     x.DefaultGroup = configuration["Cap:DefaultGroupName"];
     x.Version = configuration["Cap:DefaultVersion"];

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexBus.AmazonSQS;
 
-internal sealed class AmazonSQSOptionsExtension : ICapOptionsExtension
+internal sealed class AmazonSQSOptionsExtension : IFlexBusOptionsExtension
 {
     private readonly Action<AmazonSQSOptions> _configure;
 

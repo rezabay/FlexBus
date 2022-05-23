@@ -5,11 +5,11 @@ using Microsoft.Extensions.Options;
 
 namespace FlexBus.PostgreSql;
 
-internal class PostgreSqlCapOptionsExtension : ICapOptionsExtension
+internal class PostgreSqlFlexBusOptionsExtension : IFlexBusOptionsExtension
 {
     private readonly Action<PostgreSqlOptions> _configure;
 
-    public PostgreSqlCapOptionsExtension(Action<PostgreSqlOptions> configure)
+    public PostgreSqlFlexBusOptionsExtension(Action<PostgreSqlOptions> configure)
     {
         _configure = configure;
     }
@@ -22,6 +22,6 @@ internal class PostgreSqlCapOptionsExtension : ICapOptionsExtension
 
         services.AddSingleton<IDataStorage, PostgreSqlDataStorage>();
         services.AddSingleton<IStorageInitializer, PostgreSqlStorageInitializer>();
-        services.AddTransient<ICapTransaction, PostgreSqlCapTransaction>();
+        services.AddTransient<ICapTransaction, PostgreSqlFlexBusTransaction>();
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexBus.Test.FakeInMemoryQueue
 {
-    internal sealed class FakeQueueOptionsExtension : ICapOptionsExtension
+    internal sealed class FakeQueueOptionsExtension : IFlexBusOptionsExtension
     {
 
         public void AddServices(IServiceCollection services)

@@ -10,7 +10,7 @@ var configuration = builder.Configuration;
 
 services.AddRazorPages();
 services.AddControllers();
-services.AddCap(x =>
+services.AddFlexBus(x =>
 {
     x.UsePostgreSql(configuration.GetConnectionString("Sql"));
 });

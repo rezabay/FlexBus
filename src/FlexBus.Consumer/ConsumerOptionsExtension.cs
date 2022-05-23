@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FlexBus.Consumer;
 
-internal sealed class ConsumerOptionsExtension : ICapOptionsExtension
+internal sealed class ConsumerOptionsExtension : IFlexBusOptionsExtension
 {
     private readonly Action<ConsumerOptions> _configure;
     

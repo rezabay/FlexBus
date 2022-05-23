@@ -19,8 +19,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The services available in the application.</param>
     /// <param name="setupAction">An action to configure the <see cref="FlexBusOptions" />.</param>
-    /// <returns>An <see cref="CapBuilder" /> for application services.</returns>
-    public static CapBuilder AddCap(this IServiceCollection services, Action<FlexBusOptions> setupAction)
+    /// <returns>An <see cref="FlexBusBuilder" /> for application services.</returns>
+    public static FlexBusBuilder AddFlexBus(this IServiceCollection services, Action<FlexBusOptions> setupAction)
     {
         if (setupAction == null)
         {
@@ -51,6 +51,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IBootstrapper, Bootstrapper>();
         services.AddHostedService<Bootstrapper>();
 
-        return new CapBuilder(services);
+        return new FlexBusBuilder(services);
     }
 }

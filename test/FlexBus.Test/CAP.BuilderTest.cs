@@ -17,7 +17,7 @@ namespace FlexBus.Test
             var services = new ServiceCollection();
 
             services.AddSingleton<IFlexBusPublisher, MyProducerService>();
-            var builder = new CapBuilder(services);
+            var builder = new FlexBusBuilder(services);
             Assert.NotNull(builder);
 
             var count = builder.Services.Count;
@@ -32,7 +32,7 @@ namespace FlexBus.Test
         public void CanAddCapService()
         {
             var services = new ServiceCollection();
-            services.AddCap(x => { });
+            services.AddFlexBus(x => { });
             var builder = services.BuildServiceProvider();
 
             var markService = builder.GetService<CapMarkerService>();
@@ -43,7 +43,7 @@ namespace FlexBus.Test
         public void CanOverridePublishService()
         {
             var services = new ServiceCollection();
-            services.AddCap(x => { }).AddProducerService<MyProducerService>();
+            services.AddFlexBus(x => { }).AddProducerService<MyProducerService>();
 
             var thingy = services.BuildServiceProvider()
                 .GetRequiredService<IFlexBusPublisher>() as MyProducerService;
@@ -56,7 +56,7 @@ namespace FlexBus.Test
         public void CanResolveCapOptions()
         {
             var services = new ServiceCollection();
-            services.AddCap(x => { });
+            services.AddFlexBus(x => { });
             var builder = services.BuildServiceProvider();
             var capOptions = builder.GetService<IOptions<FlexBusOptions>>().Value;
             Assert.NotNull(capOptions);

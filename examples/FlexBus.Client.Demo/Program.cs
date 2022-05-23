@@ -8,7 +8,7 @@ var configuration = builder.Configuration;
 
 services.AddRazorPages();
 
-services.AddCap(x =>
+services.AddFlexBus(x =>
 {
     x.Version = configuration["Cap:DefaultVersion"];
 

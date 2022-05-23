@@ -12,14 +12,14 @@ public class FlexBusOptions
     public FlexBusOptions()
     {
         ProcessorInterval = 5;
-        Extensions = new List<ICapOptionsExtension>();
+        Extensions = new List<IFlexBusOptionsExtension>();
         Version = "v1";
         DefaultGroup = "cap.queue." + Assembly.GetEntryAssembly()?.GetName().Name.ToLower();
         FailedRetryCount = 50;
         SendMessageTimeout = 30;
     }
 
-    internal IList<ICapOptionsExtension> Extensions { get; }
+    internal IList<IFlexBusOptionsExtension> Extensions { get; }
 
     /// <summary>
     /// Subscriber default group name. kafka-->group name. rabbitmq --> queue name.
@@ -49,7 +49,7 @@ public class FlexBusOptions
     /// Registers an extension that will be executed when building services.
     /// </summary>
     /// <param name="extension"></param>
-    public void RegisterExtension(ICapOptionsExtension extension)
+    public void RegisterExtension(IFlexBusOptionsExtension extension)
     {
         if (extension == null)
         {

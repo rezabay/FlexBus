@@ -6,13 +6,13 @@ using FlexBus.Transport;
 
 namespace FlexBus;
 
-public class CapHealthCheck : IHealthCheck
+public class FlexBusHealthCheck : IHealthCheck
 {
     private readonly ITransport _transport;
 
-    public CapHealthCheck(ITransport transaport)
+    public FlexBusHealthCheck(ITransport transport)
     {
-        _transport = transaport ?? throw new ArgumentNullException(nameof(transaport));
+        _transport = transport ?? throw new ArgumentNullException(nameof(transport));
     }
 
     public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, 

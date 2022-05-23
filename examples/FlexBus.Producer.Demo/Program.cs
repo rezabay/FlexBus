@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.AddCap(x =>
+services.AddFlexBus(x =>
 {
     x.DefaultGroup = configuration["Cap:DefaultGroupName"];
     x.Version = configuration["Cap:DefaultVersion"];

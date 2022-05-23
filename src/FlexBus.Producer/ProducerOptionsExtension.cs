@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FlexBus.Producer;
 
-internal sealed class ProducerOptionsExtension : ICapOptionsExtension
+internal sealed class ProducerOptionsExtension : IFlexBusOptionsExtension
 {
     private readonly Action<ProducerOptions> _configure;
 

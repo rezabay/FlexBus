@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexBus.Dashboard.NodeDiscovery
 {
-    internal sealed class DiscoveryOptionsExtension : ICapOptionsExtension
+    internal sealed class DiscoveryOptionsExtension : IFlexBusOptionsExtension
     {
         private readonly Action<DiscoveryOptions> _options;
 

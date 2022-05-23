@@ -5,7 +5,7 @@ namespace FlexBus;
 /// <summary>
 /// Cap options extension
 /// </summary>
-public interface ICapOptionsExtension
+public interface IFlexBusOptionsExtension
 {
     /// <summary>
     /// Registered child service.

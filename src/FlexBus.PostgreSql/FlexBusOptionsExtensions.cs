@@ -19,7 +19,7 @@ public static class FlexBusOptionsExtensions
 
         configure += x => x.Version = options.Version;
 
-        options.RegisterExtension(new PostgreSqlCapOptionsExtension(configure));
+        options.RegisterExtension(new PostgreSqlFlexBusOptionsExtension(configure));
 
         return options;
     }
@@ -35,7 +35,7 @@ public static class FlexBusOptionsExtensions
     {
         if (configure == null) throw new ArgumentNullException(nameof(configure));
 
-        options.RegisterExtension(new PostgreSqlCapOptionsExtension(x =>
+        options.RegisterExtension(new PostgreSqlFlexBusOptionsExtension(x =>
         {
             configure(x);
             x.Version = options.Version;

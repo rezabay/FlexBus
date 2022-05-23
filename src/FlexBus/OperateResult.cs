@@ -81,7 +81,7 @@ public class OperateResult
     {
         return Succeeded
             ? "Succeeded"
-            : string.Format("{0} : {1}", "Failed", string.Join(",", Errors.Select(x => x.Code).ToList()));
+            : $"Failed : {string.Join(",", Errors.Select(x => x.Code).ToList())}";
     }
 }
 

@@ -99,7 +99,7 @@ internal class FlexBusPublisher : IFlexBusPublisher
             }
             else
             {
-                var transaction = (CapTransactionBase)Transaction.Value;
+                var transaction = (FlexBusTransactionBase)Transaction.Value;
 
                 _storage.StoreMessage(name, message, transaction.DbTransaction);
 
