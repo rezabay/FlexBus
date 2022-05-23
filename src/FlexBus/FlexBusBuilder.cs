@@ -27,9 +27,9 @@ public class CapMessageQueueMakerService
 /// <summary>
 /// Allows fine grained configuration of CAP services.
 /// </summary>
-public sealed class CapBuilder
+public sealed class FlexBusBuilder
 {
-    public CapBuilder(IServiceCollection services)
+    public FlexBusBuilder(IServiceCollection services)
     {
         Services = services;
     }
@@ -43,7 +43,7 @@ public sealed class CapBuilder
     /// Add an <see cref="IFlexBusPublisher" />.
     /// </summary>
     /// <typeparam name="T">The type of the service.</typeparam>
-    public CapBuilder AddProducerService<T>()
+    public FlexBusBuilder AddProducerService<T>()
         where T : class, IFlexBusPublisher
     {
         return AddScoped(typeof(IFlexBusPublisher), typeof(T));
@@ -52,7 +52,7 @@ public sealed class CapBuilder
     /// <summary>
     /// Adds a scoped service of the type specified in serviceType with an implementation
     /// </summary>
-    private CapBuilder AddScoped(Type serviceType, Type concreteType)
+    private FlexBusBuilder AddScoped(Type serviceType, Type concreteType)
     {
         Services.AddScoped(serviceType, concreteType);
         return this;
@@ -61,7 +61,7 @@ public sealed class CapBuilder
     /// <summary>
     /// Adds a singleton service of the type specified in serviceType with an implementation
     /// </summary>
-    private CapBuilder AddSingleton(Type serviceType, Type concreteType)
+    private FlexBusBuilder AddSingleton(Type serviceType, Type concreteType)
     {
         Services.AddSingleton(serviceType, concreteType);
         return this;

@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexBus.PostgreSql;
 
-public class PostgreSqlCapTransaction : CapTransactionBase
+public class PostgreSqlFlexBusTransaction : FlexBusTransactionBase
 {
-    public PostgreSqlCapTransaction()
+    public PostgreSqlFlexBusTransaction()
     {
     }
 
