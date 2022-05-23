@@ -5,7 +5,7 @@ using FlexBus.Producer;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class CapOptionsExtensions
+public static class FlexBusOptionsExtensions
 {
     public static FlexBusOptions UseProducer(this FlexBusOptions options, Action<ProducerOptions> configure)
     {

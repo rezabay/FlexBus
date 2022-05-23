@@ -40,13 +40,13 @@ public sealed class CapBuilder
     public IServiceCollection Services { get; }
 
     /// <summary>
-    /// Add an <see cref="ICapPublisher" />.
+    /// Add an <see cref="IFlexBusPublisher" />.
     /// </summary>
     /// <typeparam name="T">The type of the service.</typeparam>
     public CapBuilder AddProducerService<T>()
-        where T : class, ICapPublisher
+        where T : class, IFlexBusPublisher
     {
-        return AddScoped(typeof(ICapPublisher), typeof(T));
+        return AddScoped(typeof(IFlexBusPublisher), typeof(T));
     }
 
     /// <summary>

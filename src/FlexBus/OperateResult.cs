@@ -12,7 +12,7 @@ public class OperateResult
     // ReSharper disable once InconsistentNaming
 
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
-    private List<OperateError> _errors = new List<OperateError>();
+    private List<OperateError> _errors = new();
 
     /// <summary>
     /// Flag indicating whether if the operation succeeded or not.

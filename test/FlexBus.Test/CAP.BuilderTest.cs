@@ -16,7 +16,7 @@ namespace FlexBus.Test
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<ICapPublisher, MyProducerService>();
+            services.AddSingleton<IFlexBusPublisher, MyProducerService>();
             var builder = new CapBuilder(services);
             Assert.NotNull(builder);
 
@@ -24,7 +24,7 @@ namespace FlexBus.Test
             Assert.Equal(1, count);
 
             var provider = services.BuildServiceProvider();
-            var capPublisher = provider.GetService<ICapPublisher>();
+            var capPublisher = provider.GetService<IFlexBusPublisher>();
             Assert.NotNull(capPublisher);
         }
 
@@ -46,7 +46,7 @@ namespace FlexBus.Test
             services.AddCap(x => { }).AddProducerService<MyProducerService>();
 
             var thingy = services.BuildServiceProvider()
-                .GetRequiredService<ICapPublisher>() as MyProducerService;
+                .GetRequiredService<IFlexBusPublisher>() as MyProducerService;
 
             Assert.NotNull(thingy);
         }
@@ -62,7 +62,7 @@ namespace FlexBus.Test
             Assert.NotNull(capOptions);
         }
 
-        private class MyProducerService : ICapPublisher
+        private class MyProducerService : IFlexBusPublisher
         {
             public IServiceProvider ServiceProvider { get; }
 

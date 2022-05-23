@@ -22,7 +22,8 @@ internal class MessageSender : IMessageSender
     private readonly IOptions<FlexBusOptions> _options;
     private readonly IOptions<ProducerOptions> _producerOptions;
 
-    public MessageSender(ILogger<MessageSender> logger,
+    public MessageSender(
+        ILogger<MessageSender> logger,
         IServiceProvider serviceProvider)
     {
         _logger = logger;
@@ -129,8 +130,6 @@ internal class MessageSender : IMessageSender
         return true;
     }
 
-    #region tracing
-
     private long? TracingBefore(TransportMessage message)
     {
         _logger.LogInformation($"[Publishing] Message: {message.GetName()}");
@@ -165,6 +164,4 @@ internal class MessageSender : IMessageSender
             _logger.LogInformation(ex, $"[Published with error] Message: {message.GetName()}");
         }
     }
-
-    #endregion
 }

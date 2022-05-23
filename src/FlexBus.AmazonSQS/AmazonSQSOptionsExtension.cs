@@ -1,6 +1,5 @@
 ﻿using System;
 using FlexBus.Transport;
-using FlexBus;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlexBus.AmazonSQS;

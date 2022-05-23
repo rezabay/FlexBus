@@ -1,7 +1,4 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
-using Amazon.SQS.Model;
+﻿using Amazon.SQS.Model;
 using FlexBus.Messages;
 using FlexBus.Transport;
 using Microsoft.Extensions.Options;
@@ -10,121 +7,115 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using FlexBus;
 using Headers = FlexBus.Messages.Headers;
 
-namespace FlexBus.AmazonSQS
+namespace FlexBus.AmazonSQS;
+
+internal sealed class AmazonSQSConsumerClient : AmazonSQSClientWrapper, IConsumerClient
 {
-    internal sealed class AmazonSQSConsumerClient : AmazonSQSClientWrapper, IConsumerClient
+    private readonly string _groupId;
+
+    public event EventHandler<TransportMessage> OnMessageReceived;
+    public event EventHandler<LogMessageEventArgs> OnLog;
+
+    public BrokerAddress BrokerAddress => new("AmazonSQS", QueueUrl);
+
+    public AmazonSQSConsumerClient(string groupId, 
+        IOptions<AmazonSQSOptions> options,
+        IOptions<FlexBusOptions> capOptions) : base(options, capOptions)
     {
-        private readonly string _groupId;
+        _groupId = groupId;
+    }
 
-        public event EventHandler<TransportMessage> OnMessageReceived;
-        public event EventHandler<LogMessageEventArgs> OnLog;
+    public async Task Listening(TimeSpan timeout, CancellationToken cancellationToken)
+    {
+        await Connect();
 
-        public BrokerAddress BrokerAddress => new("AmazonSQS", QueueUrl);
-
-        public AmazonSQSConsumerClient(string groupId, 
-                                       IOptions<AmazonSQSOptions> options,
-                                       IOptions<FlexBusOptions> capOptions) : base(options, capOptions)
+        var request = new ReceiveMessageRequest(QueueUrl)
         {
-            _groupId = groupId;
-        }
+            WaitTimeSeconds = 5,
+            MaxNumberOfMessages = 10,
+            MessageAttributeNames =
+            {
+                "cap-*"
+            }
+        };
 
-        public async Task Listening(TimeSpan timeout, CancellationToken cancellationToken)
+        while (!cancellationToken.IsCancellationRequested)
         {
-            await Connect();
+            var response = await SQSClient.ReceiveMessageAsync(request, cancellationToken);
 
-            var request = new ReceiveMessageRequest(QueueUrl)
+            if (response.Messages.Any())
             {
-                WaitTimeSeconds = 5,
-                MaxNumberOfMessages = 10,
-                MessageAttributeNames =
+                foreach (var message in response.Messages)
                 {
-                    "cap-*"
-                }
-            };
+                    var header = message.MessageAttributes?.ToDictionary(x => x.Key, x => x.Value.StringValue);
+                    var body = message.Body;
 
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                var response = await SQSClient.ReceiveMessageAsync(request, cancellationToken);
+                    var transportMessage = new TransportMessage(header, body != null ? Encoding.UTF8.GetBytes(body) : null);
+                    transportMessage.Headers.Add(Headers.Group, _groupId);
 
-                if (response.Messages.Any())
-                {
-                    foreach (var message in response.Messages)
-                    {
-                        var header = message.MessageAttributes?.ToDictionary(x => x.Key, x => x.Value.StringValue);
-                        var body = message.Body;
-
-                        var transportMessage = new TransportMessage(header, body != null ? Encoding.UTF8.GetBytes(body) : null);
-                        transportMessage.Headers.Add(Headers.Group, _groupId);
-
-                        OnMessageReceived?.Invoke(message.ReceiptHandle, transportMessage);
-                    }
-                }
-                else
-                {
-                    await Task.Delay(timeout, cancellationToken);
+                    OnMessageReceived?.Invoke(message.ReceiptHandle, transportMessage);
                 }
             }
-        }
-
-        public void Commit(object sender)
-        {
-            try
+            else
             {
-                SQSClient.DeleteMessageAsync(QueueUrl, (string)sender);
-            }
-            catch (InvalidIdFormatException ex)
-            {
-                InvalidIdFormatLog(ex.Message);
+                await Task.Delay(timeout, cancellationToken);
             }
         }
+    }
 
-        public void Reject(object sender)
+    public void Commit(object sender)
+    {
+        try
         {
-            try
-            {
-                // Visible again in 3 seconds
-                SQSClient.ChangeMessageVisibilityAsync(QueueUrl, (string)sender, 3);
-            }
-            catch (MessageNotInflightException ex)
-            {
-                MessageNotInflightLog(ex.Message);
-            }
+            SQSClient.DeleteMessageAsync(QueueUrl, (string)sender);
         }
-
-        public void Dispose()
+        catch (InvalidIdFormatException ex)
         {
-            SQSClient?.Dispose();
+            InvalidIdFormatLog(ex.Message);
         }
+    }
 
-        public Task Connect() =>  ConnectToSQS(queueName: _groupId);
-
-        private Task InvalidIdFormatLog(string exceptionMessage)
+    public void Reject(object sender)
+    {
+        try
         {
-            var logArgs = new LogMessageEventArgs
-            {
-                LogType = MqLogType.InvalidIdFormat,
-                Reason = exceptionMessage
-            };
-
-            OnLog?.Invoke(null, logArgs);
-
-            return Task.CompletedTask;
+            // Visible again in 3 seconds
+            SQSClient.ChangeMessageVisibilityAsync(QueueUrl, (string)sender, 3);
         }
-
-        private Task MessageNotInflightLog(string exceptionMessage)
+        catch (MessageNotInflightException ex)
         {
-            var logArgs = new LogMessageEventArgs
-            {
-                LogType = MqLogType.MessageNotInflight,
-                Reason = exceptionMessage
-            };
-
-            OnLog?.Invoke(null, logArgs);
-
-            return Task.CompletedTask;
+            MessageNotInflightLog(ex.Message);
         }
+    }
+
+    public void Dispose()
+    {
+        SQSClient?.Dispose();
+    }
+
+    private Task Connect() =>  ConnectToSQS(queueName: _groupId);
+
+    private void InvalidIdFormatLog(string exceptionMessage)
+    {
+        var logArgs = new LogMessageEventArgs
+        {
+            LogType = MqLogType.InvalidIdFormat,
+            Reason = exceptionMessage
+        };
+
+        OnLog?.Invoke(null, logArgs);
+    }
+
+    private void MessageNotInflightLog(string exceptionMessage)
+    {
+        var logArgs = new LogMessageEventArgs
+        {
+            LogType = MqLogType.MessageNotInflight,
+            Reason = exceptionMessage
+        };
+
+        OnLog?.Invoke(null, logArgs);
     }
 }

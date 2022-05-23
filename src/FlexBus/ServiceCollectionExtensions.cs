@@ -28,10 +28,10 @@ public static class ServiceCollectionExtensions
         }
 
         services.TryAddSingleton<CapMarkerService>();
-        services.TryAddSingleton<ICapPublisher, CapPublisher>();
+        services.TryAddSingleton<IFlexBusPublisher, FlexBusPublisher>();
 
         // Processors
-        services.TryAddEnumerable(ServiceDescriptor.Singleton<IProcessingServer, CapProcessingServer>());
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<IProcessingServer, FlexBusProcessingServer>());
 
         // Sender and Executors
         services.TryAddSingleton<IDispatcher, Dispatcher>();

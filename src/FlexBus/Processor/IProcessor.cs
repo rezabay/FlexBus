@@ -1,12 +1,8 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+﻿using System.Threading.Tasks;
 
-using System.Threading.Tasks;
+namespace FlexBus.Processor;
 
-namespace FlexBus.Processor
+public interface IProcessor
 {
-    public interface IProcessor
-    {
-        Task ProcessAsync(ProcessingContext context);
-    }
+    Task ProcessAsync(ProcessingContext context);
 }

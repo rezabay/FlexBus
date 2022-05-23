@@ -9,7 +9,7 @@ namespace FlexBus;
 /// <summary>
 /// A publish service for publish a message to CAP.
 /// </summary>
-public interface ICapPublisher
+public interface IFlexBusPublisher
 {
     IServiceProvider ServiceProvider { get; }
 

@@ -7,9 +7,9 @@ namespace FlexBus.Client.Demo.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ICapPublisher _publisher;
+        private readonly IFlexBusPublisher _publisher;
 
-        public IndexModel(ICapPublisher publisher)
+        public IndexModel(IFlexBusPublisher publisher)
         {
             _publisher = publisher;
         }
