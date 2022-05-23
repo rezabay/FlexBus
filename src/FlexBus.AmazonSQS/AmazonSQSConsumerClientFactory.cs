@@ -10,10 +10,10 @@ namespace FlexBus.AmazonSQS
     internal sealed class AmazonSQSConsumerClientFactory : IConsumerClientFactory
     {
         private readonly IOptions<AmazonSQSOptions> _amazonSQSOptions;
-        private readonly IOptions<CapOptions> _capOptions;
+        private readonly IOptions<FlexBusOptions> _capOptions;
 
         public AmazonSQSConsumerClientFactory(IOptions<AmazonSQSOptions> amazonSQSOptions, 
-                                              IOptions<CapOptions> capOptions)
+                                              IOptions<FlexBusOptions> capOptions)
         {
             _amazonSQSOptions = amazonSQSOptions;
             _capOptions = capOptions;

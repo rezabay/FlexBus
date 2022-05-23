@@ -58,7 +58,7 @@ namespace FlexBus.Test
             var services = new ServiceCollection();
             services.AddCap(x => { });
             var builder = services.BuildServiceProvider();
-            var capOptions = builder.GetService<IOptions<CapOptions>>().Value;
+            var capOptions = builder.GetService<IOptions<FlexBusOptions>>().Value;
             Assert.NotNull(capOptions);
         }
 

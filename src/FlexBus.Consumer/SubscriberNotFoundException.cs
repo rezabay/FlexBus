@@ -1,14 +1,10 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+﻿using System;
 
-using System;
+namespace FlexBus.Consumer;
 
-namespace FlexBus.Consumer
+public class SubscriberNotFoundException : Exception
 {
-    public class SubscriberNotFoundException : Exception
+    public SubscriberNotFoundException(string message) : base(message)
     {
-        public SubscriberNotFoundException(string message) : base(message)
-        {
-        }
     }
 }

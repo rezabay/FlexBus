@@ -21,7 +21,7 @@ namespace FlexBus.PostgreSql;
 
 public class PostgreSqlDataStorage : IDataStorage
 {
-    private readonly IOptions<CapOptions> _capOptions;
+    private readonly IOptions<FlexBusOptions> _capOptions;
     private readonly IStorageInitializer _initializer;
     private readonly IOptions<PostgreSqlOptions> _options;
     private readonly ISerializer _serializer;
@@ -30,7 +30,7 @@ public class PostgreSqlDataStorage : IDataStorage
 
     public PostgreSqlDataStorage(
         IOptions<PostgreSqlOptions> options,
-        IOptions<CapOptions> capOptions,
+        IOptions<FlexBusOptions> capOptions,
         IStorageInitializer initializer,
         ISerializer serializer)
     {

@@ -13,17 +13,17 @@ namespace FlexBus.AmazonSQS
         private static readonly SemaphoreSlim ConnectionLock = new(initialCount: 1, maxCount: 1);
 
         protected readonly AmazonSQSOptions SQSOptions;
-        protected readonly CapOptions CapOptions;
+        protected readonly FlexBusOptions FlexBusOptions;
 
         protected IAmazonSQS SQSClient;
         protected string QueueUrl = string.Empty;
         protected string QueueName;
 
         protected AmazonSQSClientWrapper(IOptions<AmazonSQSOptions> sqsOptions,
-                                         IOptions<CapOptions> capOptions)
+                                         IOptions<FlexBusOptions> capOptions)
         {
             SQSOptions = sqsOptions.Value;
-            CapOptions = capOptions.Value;
+            FlexBusOptions = capOptions.Value;
         }
 
         protected async Task ConnectToSQS(string queueName = null)
@@ -49,7 +49,7 @@ namespace FlexBus.AmazonSQS
                     : new AmazonSQSClient(config);
 
                 QueueName = string.IsNullOrEmpty(queueName) 
-                    ? CapOptions.DefaultGroup + "." + CapOptions.Version 
+                    ? FlexBusOptions.DefaultGroup + "." + FlexBusOptions.Version 
                     : queueName;
                 var queue = await SQSClient.CreateQueueAsync(QueueName.NormalizeForAws());
                 QueueUrl = queue.QueueUrl;

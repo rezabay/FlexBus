@@ -21,7 +21,7 @@ namespace FlexBus.AmazonSQS
 
         public AmazonSQSTransport(ILogger<AmazonSQSTransport> logger,
                                   IOptions<AmazonSQSOptions> sqsOptions,
-                                  IOptions<CapOptions> capOptions) : base(sqsOptions, capOptions)
+                                  IOptions<FlexBusOptions> capOptions) : base(sqsOptions, capOptions)
         {
             _logger = logger;
         }

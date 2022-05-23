@@ -8,12 +8,12 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class CapOptionsExtensions
 {
-    public static CapOptions UsePostgreSql(this CapOptions options, string connectionString)
+    public static FlexBusOptions UsePostgreSql(this FlexBusOptions options, string connectionString)
     {
         return options.UsePostgreSql(opt => { opt.ConnectionString = connectionString; });
     }
 
-    public static CapOptions UsePostgreSql(this CapOptions options, Action<PostgreSqlOptions> configure)
+    public static FlexBusOptions UsePostgreSql(this FlexBusOptions options, Action<PostgreSqlOptions> configure)
     {
         if (configure == null) throw new ArgumentNullException(nameof(configure));
 
@@ -24,13 +24,13 @@ public static class CapOptionsExtensions
         return options;
     }
 
-    public static CapOptions UseEntityFramework<TContext>(this CapOptions options)
+    public static FlexBusOptions UseEntityFramework<TContext>(this FlexBusOptions options)
         where TContext : DbContext
     {
         return options.UseEntityFramework<TContext>(opt => { });
     }
 
-    public static CapOptions UseEntityFramework<TContext>(this CapOptions options, Action<EFOptions> configure)
+    public static FlexBusOptions UseEntityFramework<TContext>(this FlexBusOptions options, Action<EFOptions> configure)
         where TContext : DbContext
     {
         if (configure == null) throw new ArgumentNullException(nameof(configure));

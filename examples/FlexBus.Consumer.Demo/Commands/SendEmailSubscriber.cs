@@ -1,14 +1,17 @@
-﻿using System.Threading.Tasks;
-using FlexBus;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using FlexBus.Common.Demo;
 
 namespace FlexBus.Consumer.Demo.Commands;
 
-public class SendEmailSubscriber : ICapSubscribe
+public class SendEmailSubscriber : IFlexBusSubscriber
 {
-    [CapSubscribe("SendEmailCommand")]
-    public Task ProcessAsync(SendEmailCommand command)
+    public string Topic => "SendEmailCommand";
+    public Type MessageType { get; } = typeof(SendEmailCommand);
+
+    public Task ProcessAsync(object obj, CancellationToken cancellationToken)
     {
-        return Task.Delay(2000);
+        return Task.Delay(2000, cancellationToken);
     }
 }

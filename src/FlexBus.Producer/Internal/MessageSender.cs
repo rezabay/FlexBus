@@ -19,7 +19,7 @@ internal class MessageSender : IMessageSender
     private readonly IDataStorage _dataStorage;
     private readonly ISerializer _serializer;
     private readonly ITransport _transport;
-    private readonly IOptions<CapOptions> _options;
+    private readonly IOptions<FlexBusOptions> _options;
     private readonly IOptions<ProducerOptions> _producerOptions;
 
     public MessageSender(ILogger<MessageSender> logger,
@@ -28,7 +28,7 @@ internal class MessageSender : IMessageSender
         _logger = logger;
         _serviceProvider = serviceProvider;
 
-        _options = serviceProvider.GetService<IOptions<CapOptions>>();
+        _options = serviceProvider.GetService<IOptions<FlexBusOptions>>();
         _producerOptions = serviceProvider.GetService<IOptions<ProducerOptions>>();
         _dataStorage = serviceProvider.GetService<IDataStorage>();
         _serializer = serviceProvider.GetService<ISerializer>();

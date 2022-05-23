@@ -26,7 +26,7 @@ namespace FlexBus.AmazonSQS
 
         public AmazonSQSConsumerClient(string groupId, 
                                        IOptions<AmazonSQSOptions> options,
-                                       IOptions<CapOptions> capOptions) : base(options, capOptions)
+                                       IOptions<FlexBusOptions> capOptions) : base(options, capOptions)
         {
             _groupId = groupId;
         }

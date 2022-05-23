@@ -1,16 +1,12 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+﻿using System;
 
-using System;
+namespace FlexBus;
 
-namespace FlexBus
+public class BrokerConnectionException : Exception
 {
-    public class BrokerConnectionException : Exception
+    public BrokerConnectionException(Exception innerException)
+        : base("Broker Unreachable", innerException)
     {
-        public BrokerConnectionException(Exception innerException)
-            : base("Broker Unreachable", innerException)
-        {
 
-        }
-    } 
+    }
 }

@@ -1,19 +1,15 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+namespace FlexBus;
 
-namespace FlexBus
+/// <summary>
+/// Cap options extension
+/// </summary>
+public interface ICapOptionsExtension
 {
     /// <summary>
-    /// Cap options extension
+    /// Registered child service.
     /// </summary>
-    public interface ICapOptionsExtension
-    {
-        /// <summary>
-        /// Registered child service.
-        /// </summary>
-        /// <param name="services">add service to the <see cref="IServiceCollection" /></param>
-        void AddServices(IServiceCollection services);
-    }
+    /// <param name="services">add service to the <see cref="IServiceCollection" /></param>
+    void AddServices(IServiceCollection services);
 }

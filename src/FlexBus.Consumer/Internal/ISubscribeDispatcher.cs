@@ -1,19 +1,18 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using FlexBus.Persistence;
 
-namespace FlexBus.Consumer.Internal
-{
-    /// <summary>
-    /// Consumer executor
-    /// </summary>
-    public interface ISubscribeDispatcher
-    {
-        Task<OperateResult> DispatchAsync(MediumMessage message, CancellationToken cancellationToken = default);
+namespace FlexBus.Consumer.Internal;
 
-        Task<OperateResult> DispatchAsync(MediumMessage message, ConsumerExecutorDescriptor descriptor, CancellationToken cancellationToken = default);
-    }
+/// <summary>
+/// Consumer executor
+/// </summary>
+public interface ISubscribeDispatcher
+{
+    Task<OperateResult> DispatchAsync(MediumMessage message, CancellationToken cancellationToken = default);
+
+    Task<OperateResult> DispatchAsync(
+        MediumMessage message, 
+        IFlexBusSubscriber subscribe, 
+        CancellationToken cancellationToken = default);
 }

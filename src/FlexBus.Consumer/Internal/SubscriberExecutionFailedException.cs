@@ -1,14 +1,10 @@
-﻿// Copyright (c) .NET Core Community. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+﻿using System;
 
-using System;
+namespace FlexBus.Consumer.Internal;
 
-namespace FlexBus.Consumer.Internal
+internal class SubscriberExecutionFailedException : Exception
 {
-    internal class SubscriberExecutionFailedException : Exception
+    public SubscriberExecutionFailedException(string message, Exception ex) : base(message, ex)
     {
-        public SubscriberExecutionFailedException(string message, Exception ex) : base(message, ex)
-        {
-        }
     }
 }

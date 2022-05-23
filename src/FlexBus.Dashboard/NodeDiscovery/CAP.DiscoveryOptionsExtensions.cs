@@ -37,21 +37,21 @@ namespace FlexBus.Dashboard.NodeDiscovery
 
     public static class CapDiscoveryOptionsExtensions
     {
-        public static CapOptions UseDiscovery(this CapOptions capOptions)
+        public static FlexBusOptions UseDiscovery(this FlexBusOptions flexBusOptions)
         {
-            return capOptions.UseDiscovery(opt => { });
+            return flexBusOptions.UseDiscovery(opt => { });
         }
 
-        public static CapOptions UseDiscovery(this CapOptions capOptions, Action<DiscoveryOptions> options)
+        public static FlexBusOptions UseDiscovery(this FlexBusOptions flexBusOptions, Action<DiscoveryOptions> options)
         {
             if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
 
-            capOptions.RegisterExtension(new DiscoveryOptionsExtension(options));
+            flexBusOptions.RegisterExtension(new DiscoveryOptionsExtension(options));
 
-            return capOptions;
+            return flexBusOptions;
         }
     }
 }

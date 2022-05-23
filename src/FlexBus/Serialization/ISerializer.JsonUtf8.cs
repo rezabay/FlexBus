@@ -36,7 +36,9 @@ namespace FlexBus.Serialization
             }
 
             var json = Encoding.UTF8.GetString(transportMessage.Body);
-            return Task.FromResult(new Message(transportMessage.Headers, JsonConvert.DeserializeObject(json, valueType)));
+            return Task.FromResult(
+                new Message(transportMessage.Headers,
+                    JsonConvert.DeserializeObject(json, valueType)));
         }
 
         public string Serialize(Message message)

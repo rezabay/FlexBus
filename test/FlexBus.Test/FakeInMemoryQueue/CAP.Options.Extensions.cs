@@ -2,7 +2,7 @@
 {
     public static class CapOptionsExtensions
     {
-        public static CapOptions UseFakeTransport(this CapOptions options)
+        public static FlexBusOptions UseFakeTransport(this FlexBusOptions options)
         {
             options.RegisterExtension(new FakeQueueOptionsExtension());
             return options;
